@@ -6,7 +6,7 @@ struct ContentView: View {
         TabView {
             HomeView()
                 .tabItem {
-                    Label("Home", systemImage: "house.fill")
+                    Label("Home1", systemImage: "house.fill")
                 }
             
             SearchView()
