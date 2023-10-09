@@ -1,19 +1,20 @@
 import Foundation
-//import SwiftData
+    //import SwiftData
 import Observation
 
-class ModelData: ObservableObject {
-    @Published var movies: [Movie] = []
-    @Published var movieDetail: MovieDetail = MovieDetail(imdbID: "", Title: "", DVD: "", Poster: "", Runtime: "", Director: "", Actors: "", Plot: "", Country: "")
+@Observable
+class ModelData {
+    var movies: [Movie] = []
+    var movieDetail: MovieDetail = MovieDetail(imdbID: "", Title: "", DVD: "", Poster: "", Runtime: "", Director: "", Actors: "", Plot: "", Country: "")
 }
 
-//@Model
+    //@Model
 struct Returned: Hashable, Codable {
     var Search: [Movie]
 }
 
 struct Movie: Hashable, Codable {
-//    @Attribute(.unique) let imdbID: String
+        //    @Attribute(.unique) let imdbID: String
     var imdbID: String
     var Title: String
     var Year: String

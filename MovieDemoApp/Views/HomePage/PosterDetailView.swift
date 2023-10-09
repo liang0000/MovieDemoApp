@@ -2,7 +2,7 @@ import SwiftUI
 
 struct PosterDetailView: View {
     @Binding var movieID: String
-    @EnvironmentObject var poster: ModelData
+    @Environment(ModelData.self) var poster
     var body: some View {
         VStack {
             ScrollView {
@@ -15,11 +15,10 @@ struct PosterDetailView: View {
                     Rectangle()
                         .foregroundColor(.secondary)
                 }
-                    //                .frame(maxWidth: 220)
                 VStack {
                     Text(poster.movieDetail.Title)
                         .font(.title.bold())
-                        Text("Director: ") +  Text(poster.movieDetail.Director).bold()
+                    Text("Director: ") +  Text(poster.movieDetail.Director).bold()
                     Text(poster.movieDetail.Plot)
                     
                     Text("Launch on ") + Text(poster.movieDetail.DVD).bold()
@@ -44,5 +43,5 @@ struct PosterDetailView: View {
 
 #Preview {
     PosterDetailView(movieID: .constant("tt2395427"))
-        .environmentObject(ModelData())
+        .environment(ModelData())
 }

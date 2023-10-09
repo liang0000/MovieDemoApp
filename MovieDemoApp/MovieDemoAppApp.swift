@@ -5,7 +5,7 @@ struct MovieDemoAppApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()
-                .environmentObject(ModelData())
+                .environment(ModelData())
         }
     }
 }

@@ -6,7 +6,7 @@ struct ContentView: View {
         TabView {
             HomeView()
                 .tabItem {
-                    Label("Home1", systemImage: "house.fill")
+                    Label("Home", systemImage: "house.fill")
                 }
             
             SearchView()
@@ -33,5 +33,5 @@ struct ContentView: View {
 
 #Preview {
     ContentView()
-        .environmentObject(ModelData())
+        .environment(ModelData())
 }

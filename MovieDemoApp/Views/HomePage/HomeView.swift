@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @EnvironmentObject var movie: ModelData
+    @Environment(ModelData.self) var movie
     
     private let columns = [ GridItem(.flexible()), GridItem(.flexible()) ]
     @State var selectedPoster: String = ""
@@ -67,5 +67,5 @@ struct HomeView: View {
 
 #Preview {
     HomeView()
-        .environmentObject(ModelData())
+        .environment(ModelData())
 }
