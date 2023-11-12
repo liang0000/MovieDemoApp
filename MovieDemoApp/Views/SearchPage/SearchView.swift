@@ -70,5 +70,4 @@ struct SearchView: View {
 
 #Preview {
     SearchView()
-        .environment(ModelData())
 }
