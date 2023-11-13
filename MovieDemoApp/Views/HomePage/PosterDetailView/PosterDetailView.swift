@@ -2,6 +2,7 @@ import SwiftUI
 
 struct PosterDetailView: View {
     var movieID: String
+    @Environment(\.dismiss) private var dismiss
     @State private var poster = PosterDetailViewModel()
     var body: some View {
         ZStack {
@@ -17,7 +18,8 @@ struct PosterDetailView: View {
                 VStack {
                     Text(poster.movieDetail?.Title ?? "")
                         .font(.title.bold())
-                    Text("Director: ") +  Text(poster.movieDetail?.Director ?? "").bold()
+                        .onTapGesture { dismiss() }
+                    Text("Director: ") + Text(poster.movieDetail?.Director ?? "").bold()
                     Text(poster.movieDetail?.Plot ?? "")
                     
                     Text("Launch on ") + Text(poster.movieDetail?.DVD ?? "").bold()

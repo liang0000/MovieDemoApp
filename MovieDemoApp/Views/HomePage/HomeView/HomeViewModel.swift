@@ -1,5 +1,6 @@
 import Foundation
 import Observation
+import SwiftUI
 
 @Observable
 final class HomeViewModel {
@@ -7,6 +8,7 @@ final class HomeViewModel {
     var isLoading = false
     var alertItem: AlertItem?
     var selectedPoster: Movie?
+    let columns = [ GridItem(.flexible()), GridItem(.flexible()) ]
     
     func getMovies() {
         isLoading = true

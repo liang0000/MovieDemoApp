@@ -3,12 +3,10 @@ import SwiftUI
 struct HomeView: View {
     @State private var viewModel = HomeViewModel()
     
-    private let columns = [ GridItem(.flexible()), GridItem(.flexible()) ]
-    
     var body: some View {
         ZStack {
             ScrollView {
-                LazyVGrid(columns: columns) {
+                LazyVGrid(columns: viewModel.columns) {
                     ForEach(viewModel.movies, id: \.imdbID) { movie in
                         Button(action: {
                             viewModel.selectedPoster = movie
