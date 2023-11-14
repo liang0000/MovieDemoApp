@@ -43,9 +43,9 @@ struct HomeView: View {
         .alert(item: $viewModel.alertItem) { alertItem in
             Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
         }
-//        .sheet(item: $viewModel.selectedPoster) { movie in
-//            PosterDetailView(movieID: movie.imdbID)
-//        }
+        .sheet(item: $viewModel.selectedPoster) { movie in
+            PosterDetailView(movieID: movie.imdbID)
+        }
     }
 }
 

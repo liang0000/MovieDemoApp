@@ -1,10 +1,11 @@
 import Foundation
 
-struct Movie: Hashable, Codable {
+struct Movie: Hashable, Codable, Identifiable {
     let imdbID: String
     let Title: String
     let Year: String
     let Poster: String
+    var id: String { imdbID }
 }
 
 struct MovieDetail: Hashable, Codable {
