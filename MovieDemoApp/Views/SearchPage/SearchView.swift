@@ -16,7 +16,6 @@ struct SearchView: View {
         }
     }
     
-    
     var body: some View {
         VStack {
             VStack {
@@ -34,12 +33,12 @@ struct SearchView: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    ForEach(categories, id: \.self) { categary in
+                    ForEach(categories, id: \.self) { category in
                         Button {
                             
                         } label: {
                             
-                            Text(categary)
+                            Text(category)
                                 .bold()
                                 .foregroundStyle(.white)
                         }
