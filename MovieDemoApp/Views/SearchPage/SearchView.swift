@@ -1,20 +1,7 @@
 import SwiftUI
 
 struct SearchView: View {
-    
-    @State private var searchTxt: String = ""
-    private var categories: [String] = ["Motivation", "Songs", "Tips", "Exercise"]
-    @State private var pinsSelection: Pins = .all
-    
-    enum Pins: String, CaseIterable, Identifiable {
-        case all, your
-        
-        var id: String { rawValue }
-        
-        var capitalized: String {
-            return self.rawValue.prefix(1).capitalized + self.rawValue.dropFirst()
-        }
-    }
+    @State private var viewModel = SearchViewModel()
     
     var body: some View {
         VStack {
@@ -22,7 +9,7 @@ struct SearchView: View {
                 HStack {
                     Image(systemName: "magnifyingglass")
                         .bold()
-                    TextField("Search Pinterest", text: $searchTxt)
+                    TextField("Search Pinterest", text: $viewModel.searchTxt)
                 }
                 .padding()
                 .background(.white)
@@ -33,7 +20,7 @@ struct SearchView: View {
             
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack {
-                    ForEach(categories, id: \.self) { category in
+                    ForEach(viewModel.categories, id: \.self) { category in
                         Button {
                             
                         } label: {
@@ -52,8 +39,8 @@ struct SearchView: View {
             .frame(maxWidth: .infinity)
             .background(.black)
             
-            Picker("Pins", selection: $pinsSelection) {
-                ForEach(Pins.allCases, id: \.self) { type in
+            Picker("Pins", selection: $viewModel.pinsSelection) {
+                ForEach(SearchViewModel.Pins.allCases, id: \.self) { type in
                     Text("\(type.capitalized) Pins")
                         .tag(type)
                 }

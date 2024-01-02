@@ -4,6 +4,7 @@ struct PosterDetailView: View {
     var movieID: String
     @Environment(\.dismiss) private var dismiss
     @State private var poster = PosterDetailViewModel()
+    
     var body: some View {
         ZStack {
             ScrollView {
