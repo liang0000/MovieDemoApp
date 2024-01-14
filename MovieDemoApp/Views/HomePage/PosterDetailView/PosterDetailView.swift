@@ -13,7 +13,7 @@ struct PosterDetailView: View {
                         .resizable()
                         .scaledToFit()
                 } placeholder: {
-                    Image("food-placeholder").resizable()
+                    ProgressView()
                 }
                 
                 VStack {

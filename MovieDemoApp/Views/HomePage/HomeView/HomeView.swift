@@ -10,7 +10,6 @@ struct HomeView: View {
                     ForEach(viewModel.movies, id: \.imdbID) { movie in
                         Button(action: {
                             viewModel.selectedPoster = movie
-                            print(movie)
                         }, label: {
                             VStack(spacing: 0) {
                                 MovieRemoteImage(urlString: movie.Poster)

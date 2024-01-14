@@ -24,7 +24,6 @@ struct SearchView: View {
                         Button {
                             
                         } label: {
-                            
                             Text(category)
                                 .bold()
                                 .foregroundStyle(.white)
