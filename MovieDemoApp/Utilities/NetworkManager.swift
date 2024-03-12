@@ -17,7 +17,6 @@ class NetworkManager: NSObject {
         }
   
         let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
-            
             if let _ = error {
                 completed(.failure(.unableToComplete))
                 return

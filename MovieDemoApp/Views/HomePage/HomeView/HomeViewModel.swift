@@ -7,8 +7,7 @@ final class HomeViewModel {
     var movies: [Movie] = []
     var isLoading = false
     var alertItem: AlertItem?
-    var selectedPoster: Movie?
-    let columns = [ GridItem(.flexible()), GridItem(.flexible()) ]
+    let columns = Array(repeating: GridItem(.flexible()), count: 2)
     
     func getMovies() {
         isLoading = true
