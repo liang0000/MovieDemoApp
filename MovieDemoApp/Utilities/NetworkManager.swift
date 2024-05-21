@@ -7,102 +7,59 @@ class NetworkManager: NSObject {
     static let baseURL          = "https://www.omdbapi.com/"
     private let movieURL        = baseURL + "?apikey=8c4ba33d&s=avengers"
     private let movieDetailURL  = baseURL + "?apikey=8c4ba33d&i="
+	let decoder					= JSONDecoder()
     
     private override init() {}
-    
-    func getMovies(completed: @escaping (Result<[Movie], MVError>) -> Void) {
+		
+	func getMovies() async throws -> [Movie] {
         guard let url = URL(string: movieURL) else {
-            completed(.failure(.invalidURL))
-            return
+			throw MVError.invalidURL
         }
-  
-        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
-            if let _ = error {
-                completed(.failure(.unableToComplete))
-                return
-            }
-                        
-            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                completed(.failure(.invalidResponse))
-                return
-            }
-            
-            guard let data = data else {
-                completed(.failure(.invalidData))
-                return
-            }
-            
-            do {
-                let decoder = JSONDecoder()
-                let decodedResponse = try decoder.decode(MovieResponse.self, from: data)
-                completed(.success(decodedResponse.Search))
-            } catch {
-                completed(.failure(.invalidData))
-            }
-        }
-        
-        task.resume()
+		
+		let (data, response) = try await URLSession.shared.data(from: url)
+		
+		guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+			throw MVError.invalidResponse
+		}
+		
+		do {
+			let decodedResponse = try decoder.decode(MovieResponse.self, from: data)
+			return decodedResponse.Search
+		} catch {
+			throw MVError.invalidData
+		}
     }
     
-    func getMovieDetail(id: String, completed: @escaping (Result<MovieDetail, MVError>) -> Void) {
+	func getMovieDetail(id: String) async throws -> MovieDetail {
         guard let url = URL(string: movieDetailURL + id) else {
-            completed(.failure(.invalidURL))
-            return
+			throw MVError.invalidURL
         }
-        
-        let task = URLSession.shared.dataTask(with: URLRequest(url: url)) { data, response, error in
-            
-            if let _ = error {
-                completed(.failure(.unableToComplete))
-                return
-            }
-            
-            guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
-                completed(.failure(.invalidResponse))
-                return
-            }
-            
-            guard let data = data else {
-                completed(.failure(.invalidData))
-                return
-            }
-            
-            do {
-                let decoder = JSONDecoder()
-                let decodedResponse = try decoder.decode(MovieDetail.self, from: data)
-                completed(.success(decodedResponse))
-            } catch {
-                completed(.failure(.invalidData))
-            }
-        }
-        
-        task.resume()
+		
+		let (data, response) = try await URLSession.shared.data(from: url)
+		
+		guard let response = response as? HTTPURLResponse, response.statusCode == 200 else {
+			throw MVError.invalidResponse
+		}
+		
+		do {
+			let decodedResponse = try decoder.decode(MovieDetail.self, from: data)
+			return decodedResponse
+		} catch {
+			throw MVError.invalidData
+		}
     }
     
-    
-    func downloadImage(from urlString: String, completed: @escaping (UIImage?) -> Void) {
-        let cacheKey = NSString(string: urlString)
-        
-        if let image = cache.object(forKey: cacheKey) {
-            completed(image)
-            return
-        }
-        
-        guard let url = URL(string: urlString) else {
-            completed(nil)
-            return
-        }
-        
-        let task = URLSession.shared.dataTask(with: url) { data, response, error in
-            guard let data = data, let image = UIImage(data: data) else {
-                completed(nil)
-                return
-            }
-            
-            self.cache.setObject(image, forKey: cacheKey)
-            completed(image)
-        }
-        
-        task.resume()
+	func downloadImage(from urlString: String) async -> UIImage? {
+		let cacheKey = NSString(string: urlString)
+		if let image = cache.object(forKey: cacheKey) { return image }
+		
+		guard let url = URL(string: urlString),
+			  let (data, _) = try? await URLSession.shared.data(from: url),
+			  let image = UIImage(data: data) else {
+			return nil
+		}
+		
+		cache.setObject(image, forKey: cacheKey)
+		return image
     }
 }

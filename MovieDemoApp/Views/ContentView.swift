@@ -2,7 +2,6 @@ import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Spacer()
         TabView {
             HomeView()
                 .tabItem {
@@ -24,10 +23,6 @@ struct ContentView: View {
                     Label("Profile", systemImage: "person.fill")
                 }
         }
-        .onAppear {
-            UITabBar.appearance().backgroundColor = .systemGray6
-        }
-        .tint(.black)
     }
 }
 

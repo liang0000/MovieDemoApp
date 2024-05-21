@@ -4,8 +4,8 @@ struct HomeView: View {
 	@State private var viewModel = HomeViewModel()
 	
 	var body: some View {
-		NavigationView {
-			ZStack {
+		ZStack {
+			NavigationView {
 				ScrollView {
 					LazyVGrid(columns: viewModel.columns) {
 						ForEach(viewModel.movies, id: \.imdbID) { movie in
@@ -34,14 +34,14 @@ struct HomeView: View {
 					}
 					.padding()
 				}
-				.background(.gray.opacity(0.3))
-				.onAppear { viewModel.getMovies() }
-				
-				if viewModel.isLoading { LoadingView() }
+				.background(Color(.secondarySystemBackground))
+				.task { viewModel.getMovies() }
 			}
-			.alert(item: $viewModel.alertItem) { alertItem in
-				Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
-			}
+			
+			if viewModel.isLoading { LoadingView() }
+		}
+		.alert(item: $viewModel.alertItem) { alertItem in
+			Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
 		}
 	}
 }

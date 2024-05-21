@@ -26,10 +26,11 @@ struct PosterDetailView: View {
 				.padding(.horizontal)
 				.padding(.bottom)
             }
+			.background(Color(.secondarySystemBackground))
             
             if poster.isLoading { LoadingView() }
         }
-        .onAppear { poster.getMovieDetail(id: movieID) }
+        .task { poster.getMovieDetail(id: movieID) }
         .alert(item: $poster.alertItem) { alertItem in
             Alert(title: alertItem.title, message: alertItem.message, dismissButton: alertItem.dismissButton)
         }

@@ -93,7 +93,6 @@
 			isa = PBXGroup;
 			children = (
 				B6CF573D2B00C55800FE5A31 /* NetworkManager.swift */,
-				B6CF573B2B00C50E00FE5A31 /* MovieRemoteImageView.swift */,
 				B60905C22AD13542006CB1D0 /* MVError.swift */,
 				B6CF57392B00C4B600FE5A31 /* AlertItem.swift */,
 			);
@@ -167,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				B6CF57402B00CAA300FE5A31 /* LoadingView.swift */,
+				B6CF573B2B00C50E00FE5A31 /* MovieRemoteImageView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";

@@ -49,7 +49,7 @@ struct SearchView: View {
             
             HomeView()
         }
-        .background(.gray.opacity(0.3))
+		.background(Color(.secondarySystemBackground))
     }
 }
 
